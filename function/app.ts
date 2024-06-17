@@ -15,9 +15,10 @@ export const handler: Handler = async (event, context) => {
   });
   console.log("started browser")
   const page = await browser.newPage();
-  console.log("started page")
+  console.log("started page 3")
 
   // Navigate the page to a URL
+  console.log("opening " + event.url)
   await page.goto(event.url);
   console.log("url visited")
 

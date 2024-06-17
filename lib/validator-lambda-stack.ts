@@ -1,9 +1,9 @@
 import * as cdk from 'aws-cdk-lib';
-import { Construct } from 'constructs';
- import * as lambda from 'aws-cdk-lib/aws-lambda';
-import {NodejsFunction} from "aws-cdk-lib/aws-lambda-nodejs"
-import * as path from 'path';
 import { Duration } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs"
+import * as path from 'path';
 
 export class ValidatorLambdaStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -12,7 +12,7 @@ export class ValidatorLambdaStack extends cdk.Stack {
     new NodejsFunction(this,'validator-lambda',{
       functionName: 'ad-validator',
       entry: path.join(__dirname, `/../function/app.ts`),
-      runtime: lambda.Runtime.NODEJS_16_X,
+      runtime: lambda.Runtime.NODEJS_18_X,
       timeout: Duration.seconds(30),
       memorySize: 2048,
       bundling: {
@@ -22,7 +22,7 @@ export class ValidatorLambdaStack extends cdk.Stack {
         nodeModules: ["@sparticuz/chromium"],
       },
       layers: [lambda.LayerVersion.fromLayerVersionArn(this, 'chromium-lambda-layer',
-        'arn:aws:lambda:eu-west-1:764866452798:layer:chrome-aws-lambda:38'
+        'arn:aws:lambda:eu-west-1:764866452798:layer:chrome-aws-lambda:45'
       )]
 
     })
