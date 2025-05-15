@@ -10,7 +10,7 @@ export class ValidatorLambdaStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    let validatorLambda = new NodejsFunction(this,'validator-lambda',{
+    let validatorLambda = new NodejsFunction(this,'validator-lambda', {
       functionName: 'ad-validator',
       entry: path.join(__dirname, `/../function/app.ts`),
       runtime: lambda.Runtime.NODEJS_18_X,

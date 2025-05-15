@@ -15,23 +15,21 @@ export const handler: Handler = async (event, context) => {
   });
   console.log("started browser")
   const page = await browser.newPage();
-  console.log("started page 3")
-
-  // Navigate the page to a URL
   console.log("opening " + event.url)
-  await page.goto(event.url);
+  await page.goto(event.url,
+    {
+      waitUntil: 'networkidle0',
+    });
+
   console.log("url visited")
+
+  await new Promise(resolve => setTimeout(resolve, 2000));
 
   const bodyChildren = await page.$$('body > *');
 
-  console.log(bodyChildren.length)
   let message = await bodyChildren[0].boundingBox();
-  console.log(message)
-  // page.$eval('body', body => body.children)
-  // console.log(await body?.boundingBox())
 
-   // page.close();
-   // browser.close();
+  await browser.close();
 
   return {
     statusCode: 200,
